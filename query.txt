@@ -1,0 +1,32 @@
+select name, party, grade_current
+from Politicians
+	where party = 'R' and
+	grade_current > 9 and grade_current < 11
+
+select count (*) as totalVotes, name
+from Politicians
+join Votes on Votes.politicianId = Politicians.id
+where Politicians.name = 'Olympia Snowe'
+
+select name,
+    count (*) as totalVotes
+    from Politicians
+    join Votes on Votes.politicianId = Politicians.id
+    where Politicians.name like 'Adam%'
+    group by Politicians.name
+
+select count (*) as totalVotes,
+    name, party, location
+    from Politicians
+    join Votes on Votes.politicianId = Politicians.id
+    group by Politicians.name 
+    order by totalVotes desc
+    limit 3
+
+SELECT first_name, last_name, gender, age
+FROM Voters JOIN Votes ON Voters.id = Votes.voterId
+    JOIN Politicians ON Votes.politicianId = Politicians.id
+    WHERE Politicians.name = 'Olympia Snowe'
+
+
+
