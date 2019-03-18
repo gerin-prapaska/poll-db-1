@@ -29,7 +29,13 @@ if(command.length != 0){
             break;
         }
         default:
-            console.log("Invalid command")
+        console.log("Invalid command")
+            let help = "node index.js setup ==> for creating table\n";
+            help += "node index.js seed ==> for inserting dummy data to table\n";
+            help += "node index.js insert <politicians|voters|votes> <par1:name|firstName|voterID> <par2:party|lastName|politicianID> <par3:location|gender> <par4:grade|age> ==> for creating table\n";
+            help += "node index.js update <tableName> <column> <value> <id>\n";
+            help += "node index.js delete <tableName> <id>\n";
+            console.log(help);      
     }
 }else{
     // releasee 5
