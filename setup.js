@@ -126,19 +126,19 @@ class Model {
         console.log(parameters)
         let tableName = Model.dbModel[parameters.param[0]] || false
         let input = tableName && parameters.param.slice(1).length == Model.dbModel[parameters.param[0]].length+1 && parameters.param.slice(1)
-        console.log(input)
+        // console.log(input)
         if (tableName && input) {
             tableName = parameters.param[0]
             let stmtx;
-            
+            console.log([input[1],input[2],input[3],input[0]])
             switch (tableName) {
                 case 'politicians':
                     stmtx = `update politicians set name = ?, party =?, location=?, grade_current = ? where id = ?`
-                    db.run(stmtx, [input[1],input[2],input[3],input[0]], Model.dataManipulationHandler)
+                    db.run(stmtx, [input[1],input[2],input[3],input[4],input[0]], Model.dataManipulationHandler)
                     break;
                 case 'voters':
                     stmtx = `update voters set first_name = ?, last_name = ?, gender=?, age = ? where id = ?`
-                    db.run(stmtx, [input[1],input[2],input[3],input[0]], Model.dataManipulationHandler)
+                    db.run(stmtx, [input[1],input[2],input[3],input[4],input[0]], Model.dataManipulationHandler)
                     break;
                 case 'votes':
                     stmtx = `update votes set voterId = ?, politiciansId=? where id = ?`
