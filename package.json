@@ -1,0 +1,26 @@
+{
+  "name": "poll-db-1",
+  "version": "1.0.0",
+  "description": "tes",
+  "main": "seed-data.js",
+  "dependencies": {
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node setup.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/classic-fox-2019/poll-db-1.git"
+  },
+  "keywords": [
+    "database"
+  ],
+  "author": "MY",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/classic-fox-2019/poll-db-1/issues"
+  },
+  "homepage": "https://github.com/classic-fox-2019/poll-db-1#readme"
+}
