@@ -28,7 +28,7 @@ db.serialize(() => {
   })
 
   // 3. Jumlah vote untuk politician bernama 'Adam'
-  db.all(`SELECT name, COUNT(*) 
+  db.all(`SELECT name, COUNT(*) AS totalVote
   FROM politicians 
   JOIN votes 
   ON politicians.id = votes.politicianId
