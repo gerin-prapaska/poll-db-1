@@ -6,20 +6,10 @@ const politicians = fs.readFileSync('./politicians.csv', 'utf8').split('\n').sli
 const voters = fs.readFileSync('./voters.csv', 'utf8').split('\n').slice(1).map(v => v.split(','));
 const votes = fs.readFileSync('./votes.csv', 'utf8').split('\n').slice(1).map(v=> v.split(','));
 
-// db.serialize(function() {
-//   db.run("CREATE TABLE lorem (info TEXT)");
- 
-//   var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
-//   for (var i = 0; i < 10; i++) {
-//       stmt.run("Ipsum " + i);
-//   }
-//   stmt.finalize();
-
-
 db.serialize(function() {
   const politicianStmt = db.prepare(`INSERT INTO politicians VALUES(null, ?, ?, ? ,?)`);
     for(let i = 0; i<politicians.length; i++){
-      politicianStmt.run(`'${politicians[i][0]}', '${politicians[i][1]}', '${politicians[i][2]}', '${politicians[i][3]}'`, function(err){
+      politicianStmt.run(`${politicians[i][0]}`, `${politicians[i][1]}`, `${politicians[i][2]}`, `${politicians[i][3]}`, function(err){
         if(err) {
           console.log(err)
         } else {
@@ -34,7 +24,7 @@ db.serialize(function() {
 db.serialize(function() {
   const voterStmt = db.prepare(`INSERT INTO voters VALUES(null, ?, ?, ? ,?)`);
     for(let i = 0; i<voters.length; i++){
-      voterStmt.run(`'${voters[i][0]}', '${voters[i][1]}', '${voters[i][2]}', '${voters[i][3]}'`, function(err){
+      voterStmt.run(`${voters[i][0]}`, `${voters[i][1]}`, `${voters[i][2]}`, `${voters[i][3]}`, function(err){
         if(err) {
           console.log(err)
         } else {
@@ -48,7 +38,7 @@ db.serialize(function() {
 db.serialize(function() {
   const votesStmt = db.prepare(`INSERT INTO votes VALUES(null, ?, ?)`);
     for(let i = 0; i<votes.length; i++){
-      votesStmt.run(`'${votes[i][0]}', '${votes[i][1]}'`, function(err){
+      votesStmt.run(`${votes[i][0]}`, `${votes[i][1]}`, function(err){
         if(err) {
           console.log(err)
         } else {
@@ -58,4 +48,3 @@ db.serialize(function() {
     }
     votesStmt.finalize();
 })
- 
