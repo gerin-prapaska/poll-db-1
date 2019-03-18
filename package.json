@@ -1,0 +1,22 @@
+{
+  "name": "poll-db-1",
+  "version": "1.0.0",
+  "description": "exercise monday-1",
+  "main": "index.js",
+  "scripts": {
+    "test": "node seed-data.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/classic-fox-2019/poll-db-1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/classic-fox-2019/poll-db-1/issues"
+  },
+  "homepage": "https://github.com/classic-fox-2019/poll-db-1#readme",
+  "dependencies": {
+    "sqlite3": "^4.0.6"
+  }
+}
