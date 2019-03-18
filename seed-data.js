@@ -5,15 +5,6 @@ const voters = fs.readFileSync('./voters.csv', 'utf8').split('\n')
 const votes = fs.readFileSync('./votes.csv', 'utf8').split('\n')
 const politicians = fs.readFileSync('./politicians.csv', 'utf8').split('\n')
 
-/* db.serialize(() => {
-  let entry = `INSERT INTO voters (id, first_name, last_name, gender, age)
-  VALUES (null, 'muhammad', 'yusuf', 'male', 20);`
-  db.run(entry, (err) => {
-    if(err) console.log('error')
-    else console.log('Sukses!')
-  })
-}) */
-
 db.serialize(() => {
   // console.log(voter)
   let entry = db.prepare(`INSERT INTO voters VALUES (null, ?, ?, ?, ?)`)

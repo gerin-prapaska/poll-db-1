@@ -2,9 +2,7 @@
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./voters.db')
 
-// console.log(db)
 db.serialize(() => {
-
   db.run('DROP TABLE IF EXISTS voters')
   db.run('DROP TABLE IF EXISTS politicians')
   db.run('DROP TABLE IF EXISTS votes')
@@ -35,8 +33,8 @@ db.serialize(() => {
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     voterId INTEGER,
     politicianId INTEGER,
-    FOREIGN KEY (voterId) REFERENCES voters (id),
-    FOREIGN KEY (politicianId) REFERENCES politicians (id)
+    FOREIGN KEY (voterId) REFERENCES voters(id),
+    FOREIGN KEY (politicianId) REFERENCES politicians(id)
   );`, (err) => {
     if(err) {console.log('Error')} 
     else {console.log('votes done!')}
