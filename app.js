@@ -2,9 +2,6 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./poll.db');
 
 const args = process.argv.slice(2);
-const command = args[0];
-const table = args[1];
-const records = [...args].slice(2);
 
 let createQuery = '';
 let updateQuery = '';

@@ -12,14 +12,15 @@ db.serialize(function() {
       politicianStmt.run(`${politicians[i][0]}`, `${politicians[i][1]}`, `${politicians[i][2]}`, `${politicians[i][3]}`, function(err){
         if(err) {
           console.log(err)
-        } else {
-          console.log('successfully seeded politicians table')
         }
       });
     }
-    politicianStmt.finalize();
+    politicianStmt.finalize(function(err){
+      if(err){
+        console.log(err);
+      } else {console.log('successfully seeded politicians table')}
+    });
 })
-
 
 db.serialize(function() {
   const voterStmt = db.prepare(`INSERT INTO voters VALUES(null, ?, ?, ? ,?)`);
@@ -27,12 +28,14 @@ db.serialize(function() {
       voterStmt.run(`${voters[i][0]}`, `${voters[i][1]}`, `${voters[i][2]}`, `${voters[i][3]}`, function(err){
         if(err) {
           console.log(err)
-        } else {
-          console.log('successfully seeded voters table')
         }
       });
     }
-    voterStmt.finalize();
+    voterStmt.finalize(function(err){
+      if(err) {
+        console.log('error', err)
+      } else {console.log('successfully seeded voters table')}
+    });
 })
 
 db.serialize(function() {
@@ -41,10 +44,12 @@ db.serialize(function() {
       votesStmt.run(`${votes[i][0]}`, `${votes[i][1]}`, function(err){
         if(err) {
           console.log(err)
-        } else {
-          console.log('successfully seeded votes table')
         }
       });
     }
-    votesStmt.finalize();
+    votesStmt.finalize(function(err){
+      if(err) {
+        console.log(err);
+      } else {console.log('successfully seeded votes table');}
+    });
 })

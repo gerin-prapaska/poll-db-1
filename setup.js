@@ -3,6 +3,18 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./poll.db');
 
 db.serialize(function(){
+  db.run(`DROP TABLE IF EXISTS politicians`)
+});
+
+db.serialize(function(){
+  db.run(`DROP TABLE IF EXISTS voters`)
+});
+
+db.serialize(function(){
+  db.run(`DROP TABLE IF EXISTS votes`)
+});
+
+db.serialize(function(){
   db.run(`CREATE TABLE IF NOT EXISTS politicians (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
@@ -12,7 +24,6 @@ db.serialize(function(){
     )`)
   });
     
-
 db.serialize(function(){
   db.run(`CREATE TABLE IF NOT EXISTS voters(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
