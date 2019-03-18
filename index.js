@@ -4,20 +4,20 @@ const sqlite = require("sqlite3").verbose();
 const db = new sqlite.Database("./poll.db");
 let command = process.argv.slice(2);
 
-//setup();
-//seedData();
+//command = ["insert","politicians","rubhi","R","SF","9.123"]
+
 if(command.length != 0){
     switch(command[0]){
+        case "setup":{
+            setup();
+            break;
+        }
+        case "seed":{
+            seedData();
+            break;
+        }
         case "insert":{
-            if(command[1]==="politicians"){
-                createPolitician(command[2],command[3],command[4],command[5])
-            }else if(command[1]==="voters"){
-                createVoter(command[2],command[3],command[4],command[5])
-            }else if(command[1]==="votes"){
-                createVote(command[2],command[3])
-            }else{
-                console.log("Invalid table name")
-            }
+            create(command.slice(1))
             break;
         }
         case "update":{
@@ -32,7 +32,7 @@ if(command.length != 0){
             console.log("Invalid command")
     }
 }else{
-
+    // releasee 5
     db.serialize(function(){
         let query1=
         `SELECT name,party,grade_current FROM politicians
@@ -80,41 +80,40 @@ if(command.length != 0){
 }
 //release 3
 
+function create(arr){
+    if(!(arr[0] === "politicians" || arr[0] === "voters" || arr[0] === "votes")){
+        console.log("Invalid table name") 
+    }
 
-function createPolitician(name, party, location, grade_current){
-    let query = 
-    `INSERT INTO politicians (name, party, location, grade_current)
-    VALUES ('${name}','${party}','${location}',${grade_current})`
-    db.run(query,function(err){
+    
+    let query = `INSERT INTO ${arr[0]} `
+    let data = arr.slice(1);
+    switch(arr[0]){
+        case "politicians":
+        case "voters":{
+            if(data.length !== 4){
+                console.log("Invalid parameter count")
+                return;
+            }
+            query += "VALUES (null,?,?,?,?)"
+            break;
+        }
+        case "votes":{
+            if(data.length !== 2){
+                console.log("Invalid parameter count")
+                return;
+            }
+            query += "VALUES (null,?,?)"
+            break;
+        }
+    }
+    db.run(query,data,function(err){
         if(err) console.log(err);
         else{
-            console.log("Successfully add data to politicians table")
+            console.log(`Successfully add data to ${arr[0]} table`)
         }
     })
-}
 
-function createVoter(firstName, lastName, gender, age){
-    let query = 
-    `INSERT INTO voters (first_name, last_name, gender, age)
-    VALUES ('${firstName}','${lastName}','${gender}',${age});`
-    db.run(query,function(err){
-        if(err) console.log(err);
-        else{
-            console.log("Successfully add data to voters table")
-        }
-    })
-}
-
-function createVote(voterId, politicianId){
-    let query = 
-    `INSERT INTO votes (voter_id,politician_id)
-    VALUES (${voterId},${politicianId})`
-    db.run(query,function(err){
-        if(err) console.log(err);
-        else{
-            console.log("Successfully add data to votes table")
-        }
-    })
 }
 
 function updateData(tableName,columnName,value,id)

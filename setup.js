@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS politicians (
     party TEXT,
     location TEXT,
     grade_current REAL
-)
+);
 `
 
 let createVoters  = `
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS voters (
     last_name TEXT,
     gender TEXT,
     age INTEGER
-)
+);
 `
 let createVotes = `
 CREATE TABLE IF NOT EXISTS votes(
@@ -29,11 +29,18 @@ CREATE TABLE IF NOT EXISTS votes(
     FOREIGN KEY(voter_id) REFERENCES voters(id),
     FOREIGN KEY(politician_id) REFERENCES politicians(id)
 
-)
+);
 `
-
+let dropall= `
+DROP TABLE IF EXISTS politicians;
+DROP TABLE IF EXISTS voters;
+DROP TABLE IF EXISTS votes;
+`
 function createTable(){
     db.serialize(function(){
+        db.run(dropall, function(err){
+            if(err)  console.log(err, "--DROP TABLE--")
+        })
         db.run(createPoliticians,function(err){
             if(err) console.log(err, "--Create Politicians--");
         })
