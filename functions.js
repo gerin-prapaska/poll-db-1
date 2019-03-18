@@ -1,41 +1,17 @@
 const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./voters.db')
 const fs = require('fs')
-// const voters = fs.readFileSync('./voters.csv', 'utf8').split('\n')
-// const votes = fs.readFileSync('./votes.csv', 'utf8').split('\n')
-// const politicians = fs.readFileSync('./politicians.csv', 'utf8').split('\n')
-
 
 db.serialize(() => {
   let table = 'voters'
 
-  // /* create */
-  // let ucup = 'Muhammad,Yusuf,male,25'
-  // ucup = ucup.split(',')
-  // db.run(`INSERT INTO ${table} VALUES (null, '${ucup[0]}', '${ucup[1]}', '${ucup[2]}', ${ucup[3]});`, (err) => {
-  //   if(err) console.log(`Error inserting to ${table}`)
-  //   else console.log(`Insertion to table ${table} successful!`)
-  // })
-
-  // /* update */
-  // let update = 'last_name,Smith,id,151'
-  // update = update.split(',')
-  // db.run(`UPDATE ${table} SET ${update[0]} = ? WHERE ${update[2]} = ${update[3]}`, update[1], (err) => {
-  //   if(err) console.log(`Error!`)
-  //   else console.log(`Updated!`)
-  // })
-
-  // /* delete */
-  // let deletion = 'id,151'
-  // deletion = deletion.split(',')
-  // db.run(`DELETE FROM ${table} WHERE ${deletion[0]} = ${deletion[1]}`, (err) => {
-  //   if(err) console.log(`Error during deletion!`)
-  //   else console.log(`Successfully deleted ${deletion[0]} ${deletion[1]} from table ${table}`)
-  // })
-
   /* read */
   // 1. nama politician, partai, grade_current dengan (partai R) && (9 <= grade_current <= 11)
-  db.all(`SELECT name, party, grade_current FROM politicians WHERE party = 'R' AND grade_current BETWEEN 9 AND 11`, (err, data) => {
+  db.all(`SELECT name, party, ROUND(grade_current, 2) AS grade_current
+  FROM politicians 
+  WHERE party = 'R' 
+  AND grade_current BETWEEN 9 AND 11
+  `, (err, data) => {
     if(err) console.log(`Error`)
     else console.table(data)
   })
@@ -88,3 +64,4 @@ db.serialize(() => {
   })
 })
 db.close()
+
