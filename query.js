@@ -2,8 +2,9 @@ const sqlite3 = require('sqlite3').verbose()
 const db = new sqlite3.Database('./poll2.db')
 
 db.all  (`SELECT name,party,grade_current FROM politician
-          WHERE grade_current <= 11
-            AND grade_current >= 9
+          WHERE grade_current < 11
+            AND grade_current > 9
+            AND party = "R"
           ORDER BY grade_current`
           ,function(err,data){
                 if (err){console.log(err)}
