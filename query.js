@@ -4,7 +4,7 @@ const db = new sqlite3.Database("./database.db");
 function nomor1() {
   const query = `
     SELECT * FROM Politicians
-    WHERE party = "R" AND grade_current BETWEEN 9 AND 11
+    WHERE party = 'R' AND grade_current BETWEEN 9 AND 11
   `;
 
   db.all(query, function(err, rows) {
@@ -18,10 +18,10 @@ function nomor1() {
 
 function nomor2() {
   const query = `
-    SELECT COUNT(*) as totalVote, name FROM Politicians
+    SELECT COUNT(*) AS totalVote, name FROM Politicians
     JOIN Votes
     ON Votes.politician_id = Politicians.id
-    WHERE name = "Olympia Snowe";
+    WHERE name = 'Olympia Snowe';
   `;
 
   db.all(query, function(err, rows) {
@@ -93,4 +93,4 @@ function nomor5() {
 // nomor2();
 // nomor3();
 // nomor4();
-nomor5();
+// nomor5();
